@@ -1,0 +1,10 @@
+<!doctype html><meta charset="utf-8"><title>MEMBERS · Discord login</title><meta name="robots" content="noindex">
+<body style="background:#0E0F0C;color:#F2F1EA;font:600 16px system-ui;display:grid;place-items:center;height:100vh;margin:0">Logging you in…
+<script>
+const h=new URLSearchParams(location.hash.slice(1)),q=new URLSearchParams(location.search);
+const d={type:'members-discord',token:h.get('access_token'),state:h.get('state')||q.get('state'),error:h.get('error_description')||h.get('error')||q.get('error_description')||q.get('error'),t:Date.now()};
+history.replaceState(null,'',location.pathname);
+try{localStorage.setItem('members-dc',JSON.stringify(d))}catch(e){}
+if(window.opener&&!window.opener.closed){try{window.opener.postMessage(d,location.origin);localStorage.removeItem('members-dc')}catch(e){}window.close()}
+else location.replace('/');
+</script>
